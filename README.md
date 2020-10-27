@@ -7,6 +7,7 @@
 ## API Spesification
 ### Register
 - Request:
+  - Method: POST
   - Endpoint: `/api/v1/register`
   - Header:
     - license: "String"
