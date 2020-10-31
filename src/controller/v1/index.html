@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+</head>
+<body>
+<img id="qrcode" src="/images/default.gif" alt="qrcode"/>
+
+<script>
+    var {search} = window.location;
+    var arrayString = search.replace('?', '').split('&');
+    var license = arrayString.find(data => data.startsWith('license')).split('=')[1]
+    var socket = io();
+    socket.on('message', function (message){
+        console.log(message);
+        if (message.sessionId === license) {
+            if (message.namespace === 'ready') document.getElementById('qrcode').src = `/images/success.png`;
+            else document.getElementById('qrcode').src = message.data;
+        }
+    })
+</script>
+</body>
+</html>
